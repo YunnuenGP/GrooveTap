@@ -3,21 +3,27 @@
 <head>
 	<title>Groove Tap</title>
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
-	<script type="text/javascript" src="assets/js/data.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.9.25/paper-full.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.29/howler.min.js"></script>
+	<script type="text/javascript" src="assets/js/data.js"></script>
 	<script type="text/paperscript" canvas="canvas">
+		var keys = keyData; //getting this value from data.js
 		var circles = [];
 		function onKeyDown(event) {
+			var keyPressed = event.key.toLowerCase();
+			if (!keys[keyPressed]) {return false;}
+
 			var maxPoint = new Point(view.size.width, view.size.height);
 			var randomPoint = Point.random();
 			var point = maxPoint * randomPoint;
-			var newCircle = new Path.Circle(point, 300);
-			newCircle.fillColor = 'orange';
+			var newCircle = new Path.Circle(point, 300);			
+			newCircle.fillColor = keys[keyPressed].color;
+
 			circles.push(newCircle);
+			keys[keyPressed].sound.play();
 		}
 
-		function onFrame(event) {
+		function onFrame(event) {		
 			for(var i = 0; i < circles.length; i++){
 				circles[i].fillColor.hue += 1;
 				circles[i].scale(.9);
