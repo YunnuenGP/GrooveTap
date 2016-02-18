@@ -7,7 +7,12 @@
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.9.25/paper-full.min.js"></script>
 	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/1.1.29/howler.min.js"></script>
 	<script type="text/paperscript" canvas="canvas">
-		
+		function onKeyDown(event) {
+			var maxPoint = new Point(view.size.width, view.size.height);
+			var randomPoint = Point.random();
+			var point = maxPoint * randomPoint;
+			new Path.Circle(point, 10).fillColor = 'orange';
+		}
 	</script>
 </head>
 <body>
